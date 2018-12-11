@@ -1,0 +1,25 @@
+<h1>Projects</h1>
+<table>
+  <tr>
+    <th>Project Title</th>
+    <% 20.times do |offset = 0| %>
+      <th><%= (@cal+offset.day).strftime("%A") %>
+        <%= (@cal+offset.day).month %> -
+        <%= (@cal+offset.day).day %>
+      </th>
+    <% end %>
+  </tr>
+  <% @projects.each do |proj| %>
+    <tr>
+      <td><%= proj.name %></td>
+      <% 20.times do |offset = 0| %>
+      <% color = 'white'
+      if proj.start <= (@cal+offset.day) && proj.end >= (@cal+offset.day)
+        color = proj.color
+      end
+        %>
+        <td bgcolor="<%= color %>"></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
