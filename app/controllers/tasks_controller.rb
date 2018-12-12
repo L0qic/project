@@ -10,6 +10,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    @assignments = Assignment.where(task_id: @task.id)
   end
 
   # GET /tasks/new
@@ -19,12 +20,14 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    @resources = Resource.all
   end
 
   # POST /tasks
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
+    @resources = Resource.all
 
     respond_to do |format|
       if @task.save
