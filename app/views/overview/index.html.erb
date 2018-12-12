@@ -1,9 +1,10 @@
-<h1>20 day track</h1>
+<% columns = 90 %>
+<h1><%= columns %> day track</h1>
 <h2>Projects</h2>
 <table>
   <tr>
     <th>Project Title</th>
-    <% 20.times do |offset = 0| %>
+    <% columns.times do |offset = 0| %>
       <th><%= (@cal+offset.day).strftime("%A") %>
         <%= (@cal+offset.day).month %> -
         <%= (@cal+offset.day).day %>
@@ -13,11 +14,11 @@
   <% @projects.each do |proj| %>
     <tr>
       <td><%= proj.name %></td>
-      <% 20.times do |offset = 0| %>
-      <% color = 'white'
-      if proj.start <= (@cal+offset.day) && proj.end >= (@cal+offset.day)
-        color = proj.color
-      end
+      <% columns.times do |offset = 0|
+        color = 'white'
+        if proj.start.beginning_of_day <= (@cal+offset.day) && proj.end.end_of_day >= (@cal+offset.day)
+          color = proj.color
+        end
         %>
         <td bgcolor="<%= color %>"></td>
       <% end %>
@@ -25,4 +26,33 @@
   <% end %>
 </table>
 
+<!-- a.sort_by {|s| [s.task.start, s.task.end] } -->
 <h2>Resources</h2>
+<table>
+  <tr>
+    <th>Resource Name</th>
+    <%  columns.times do |offset = 0| %>
+      <th><%= (@cal+offset.day).strftime("%A") %>
+        <%= (@cal+offset.day).month %> -
+        <%= (@cal+offset.day).day %>
+      </th>
+    <% end %>
+  </tr>
+  <% @resources.each do |res| %>
+  <tr>
+    <td><%= res.name %></td>
+    <% columns.times do |offset = 0|
+    color = 'white'
+    text = ""
+    resource_used = Assignment.where(resource_id: res.id).sort_by{|s| [s.task.start, s.task.end]}
+    resource_used.each do |ru|
+      if ru.task.start.beginning_of_day <= (@cal+offset.day) && ru.task.end.end_of_day >= (@cal+offset.day)
+        text += " #{ru.task.name}"
+      end
+    end
+    %>
+    <td bgcolor="<%= color %>"><%= text %></td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
