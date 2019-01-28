@@ -11,6 +11,7 @@ class TasksController < ApplicationController
   # GET /tasks/1.json
   def show
     @assignments = Assignment.where(task_id: @task.id)
+    @milestones = @task.milestones
   end
 
   # GET /tasks/new

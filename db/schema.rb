@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_11_210211) do
+ActiveRecord::Schema.define(version: 2019_01_28_215602) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer "resource_id"
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(version: 2018_12_11_210211) do
     t.datetime "updated_at", null: false
     t.index ["resource_id"], name: "index_assignments_on_resource_id"
     t.index ["task_id"], name: "index_assignments_on_task_id"
+  end
+
+  create_table "milestones", force: :cascade do |t|
+    t.date "devEndDate"
+    t.integer "qaDays"
+    t.integer "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "desc"
+    t.index ["task_id"], name: "index_milestones_on_task_id"
   end
 
   create_table "resources", force: :cascade do |t|
