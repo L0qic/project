@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 2019_01_28_215602) do
   end
 
   create_table "milestones", force: :cascade do |t|
-    t.date "devEndDate"
-    t.integer "qaDays"
+    t.date "dev_end_date"
+    t.integer "qa_days"
     t.integer "task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

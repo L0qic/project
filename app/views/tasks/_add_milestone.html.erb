@@ -1,4 +1,5 @@
-Going to add milestones here<hr>
 <% @milestones.each do |mile| %>
-  <%= mile.desc %> :: <%= mile.devEndDate %> :: <%= mile.qaDays %> <br>
+  <%= mile.desc %> :: <%= mile.dev_end_date %> :: <%= mile.qa_days %>
+  <br>
 <% end %>
+<%= link_to "Create Milestone", new_task_milestone_url(@task.id) %> |
