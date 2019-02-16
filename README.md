@@ -14,6 +14,7 @@ Right now, Project will run on OS-X Mojave for sure, and will soon be updated to
 * If you use gemsets (such as rbenv gemsets) create a new gemset if you wish.
 * If you do not already have bundler installed in your ruby environment, install it now with `gem install bundler`
 * Run bundler to install the dependancies `bundle install`
+
 Project is now ready for creating a database
 
 ## Database creation:
@@ -28,4 +29,5 @@ There is no seed data for project yet, so only the migration files need to be ru
 ## Running:
 There are no additional services needed for Project, so only the rails server needs to be started.
 ** run locally with `rails s -p 5000`
+
 Project is not ready for production yet.
