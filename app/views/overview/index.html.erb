@@ -1,35 +1,4 @@
 <% columns = 90 %>
-<h1><%= columns %> day track</h1>
-<h2>Projects</h2>
-<div style="overflow-y:auto;">
-<table>
-  <tr class="prj_head">
-    <th>Project Title</th>
-    <% columns.times do |offset = 0| %>
-      <th><%= (@cal+offset.day).strftime("%A") %>
-        <%= (@cal+offset.day).month %> -
-        <%= (@cal+offset.day).day %>
-      </th>
-    <% end %>
-  </tr>
-  <% @projects.each do |proj| %>
-  <% if !proj.all_days_past %>
-    <tr class="prj_row">
-      <td class="prj_cell"><%= proj.name %></td>
-      <% columns.times do |offset = 0|
-        color = nil
-        if proj.is_qa_day(@cal+offset.day)
-          color = proj.color
-        end
-        %>
-        <td class="qa_day_color" bgcolor="<%= color %>">
-        </td>
-      <% end %>
-    </tr>
-    <% end %>
-  <% end %>
-</table>
-</div>
 
 <div style="overflow-y:auto">
 <h2>Resources</h2>
@@ -60,6 +29,34 @@
     <td class="qa_day_color" bgcolor="<%= color %>"><%= text %></td>
     <% end %>
   </tr>
+  <% end %>
+  
+<tr><td colspan=<%= columns + 1%>>
+<h2>Projects</h2></tr>
+  <tr class="prj_head">
+    <th>Project Title</th>
+    <% columns.times do |offset = 0| %>
+      <th><%= (@cal+offset.day).strftime("%A") %>
+        <%= (@cal+offset.day).month %> -
+        <%= (@cal+offset.day).day %>
+      </th>
+    <% end %>
+  </tr>
+  <% @projects.each do |proj| %>
+  <% if !proj.all_days_past %>
+    <tr class="prj_row">
+      <td class="prj_cell"><%= proj.name %></td>
+      <% columns.times do |offset = 0|
+        color = nil
+        if proj.is_qa_day(@cal+offset.day)
+          color = proj.color
+        end
+        %>
+        <td class="qa_day_color" bgcolor="<%= color %>">
+        </td>
+      <% end %>
+    </tr>
+    <% end %>
   <% end %>
 </table>
 </div>
