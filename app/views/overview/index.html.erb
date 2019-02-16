@@ -1,8 +1,9 @@
 <% columns = 90 %>
 <h1><%= columns %> day track</h1>
 <h2>Projects</h2>
+<div style="overflow-y:auto;">
 <table>
-  <tr>
+  <tr class="prj_head">
     <th>Project Title</th>
     <% columns.times do |offset = 0| %>
       <th><%= (@cal+offset.day).strftime("%A") %>
@@ -12,25 +13,29 @@
     <% end %>
   </tr>
   <% @projects.each do |proj| %>
-    <tr>
-      <td><%= proj.name %></td>
+  <% if !proj.all_days_past %>
+    <tr class="prj_row">
+      <td class="prj_cell"><%= proj.name %></td>
       <% columns.times do |offset = 0|
         color = 'white'
         if proj.is_qa_day(@cal+offset.day)
           color = proj.color
         end
         %>
-        <td bgcolor="<%= color %>">
+        <td class="qa_day_color" bgcolor="<%= color %>">
         </td>
       <% end %>
     </tr>
+    <% end %>
   <% end %>
 </table>
+</div>
 
 <!-- a.sort_by {|s| [s.task.start, s.task.end] } -->
+<div style="overflow-y:auto">
 <h2>Resources</h2>
 <table>
-  <tr>
+  <tr class="prj_head">
     <th>Resource Name</th>
     <%  columns.times do |offset = 0| %>
       <th><%= (@cal+offset.day).strftime("%A") %>
@@ -40,20 +45,22 @@
     <% end %>
   </tr>
   <% @resources.each do |res| %>
-  <tr>
-    <td><%= res.name %></td>
+  <tr class="prj_row">
+    <td class="prj_cell"><%= res.name %></td>
     <% columns.times do |offset = 0|
     color = 'white'
     text = ""
     resource_used = Assignment.where(resource_id: res.id).sort_by{|s| [s.task.start, s.task.end]}
     resource_used.each do |ru|
-      if ru.task.start.beginning_of_day <= (@cal+offset.day) && ru.task.end.end_of_day >= (@cal+offset.day)
+      if ru.task.is_qa_day(@cal+offset.day)
         text += " #{ru.task.name}"
+        color = ru.task.color
       end
     end
     %>
-    <td bgcolor="<%= color %>"><%= text %></td>
+    <td class="qa_day_color" bgcolor="<%= color %>"><%= text %></td>
     <% end %>
   </tr>
   <% end %>
 </table>
+</div>
