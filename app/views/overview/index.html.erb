@@ -17,7 +17,7 @@
     <tr class="prj_row">
       <td class="prj_cell"><%= proj.name %></td>
       <% columns.times do |offset = 0|
-        color = 'white'
+        color = nil
         if proj.is_qa_day(@cal+offset.day)
           color = proj.color
         end
@@ -31,7 +31,6 @@
 </table>
 </div>
 
-<!-- a.sort_by {|s| [s.task.start, s.task.end] } -->
 <div style="overflow-y:auto">
 <h2>Resources</h2>
 <table>
@@ -48,12 +47,12 @@
   <tr class="prj_row">
     <td class="prj_cell"><%= res.name %></td>
     <% columns.times do |offset = 0|
-    color = 'white'
+    color = nil
     text = ""
-    resource_used = Assignment.where(resource_id: res.id).sort_by{|s| [s.task.start, s.task.end]}
+    resource_used = Assignment.where(resource_id: res.id)
     resource_used.each do |ru|
       if ru.task.is_qa_day(@cal+offset.day)
-        text += " #{ru.task.name}"
+        text += " #{ru.task.active_milestone(@cal+offset.day)}"
         color = ru.task.color
       end
     end
