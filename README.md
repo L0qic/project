@@ -12,10 +12,8 @@ Right now, Project will run on OS-X Mojave for sure, and will soon be updated to
 * Download this repo into you target directory.
 * If you are using a ruby version manager  (such as rbenv) set your ruby version to the one listed above.
 * If you use gemsets (such as rbenv gemsets) create a new gemset if you wish.
-* If you do not already have bundler installed in your ruby environment, install it now with
-** `gem install bundler`
-* Run bundler to install the dependancies
-** `bundle install`
+* If you do not already have bundler installed in your ruby environment, install it now with `gem install bundler`
+* Run bundler to install the dependancies `bundle install`
 Project is now ready for creating a database
 
 ## Database creation:
