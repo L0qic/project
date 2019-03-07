@@ -22,6 +22,7 @@
    font-style: italic;
    font-family: sans-serif;
    padding: 0px;
+   overflow: auto;
  }
 
  th {
